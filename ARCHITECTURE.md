@@ -23,7 +23,7 @@ The BillHero repository is structured as a monorepo, consisting of two main appl
 └── ... // Other configuration and documentation files
 ```
 
-### 1. `apps/web` - Main Web Application
+## 1. `apps/web` - Main Web Application
 
 - **Framework:** Next.js (App Router)
 - **Purpose:** The primary user-facing application. Handles frontend rendering, user authentication, API routes for backend logic, and integration with external services.
@@ -116,11 +116,13 @@ The BillHero repository is structured as a monorepo, consisting of two main appl
 BillHero leverages JusticeOS Google Cloud Platform resources for scalability and cost efficiency:
 
 ### GCP Project
+
 - **Project ID**: `billhero-attorney-billing`
 - **Billing**: JusticeOS Billing Account (010566-FD1BF0-0817B4)
 - **Region**: us-east-1
 
 ### Enabled APIs
+
 - Cloud Functions (serverless compute)
 - Cloud Run (containerized services)
 - Cloud Storage (document storage)
@@ -130,6 +132,7 @@ BillHero leverages JusticeOS Google Cloud Platform resources for scalability and
 - Pub/Sub (message queuing)
 
 ### Google Cloud Storage
+
 - **Raw Data Bucket**: `gs://justiceos-data-staging-raw/`
   - Incoming documents (PDFs, emails, phone bills)
   - Source files for OCR and AI processing
@@ -139,6 +142,7 @@ BillHero leverages JusticeOS Google Cloud Platform resources for scalability and
   - Processed billing information
 
 ### Data Processing Pipeline
+
 1. Documents uploaded to `gs://justiceos-data-staging-raw/`
 2. GCS Orchestrator triggers Document AI processing
 3. OCR results stored in `gs://justiceos-data-staging-processed/`
@@ -160,7 +164,7 @@ The application exposes the following API endpoints under `apps/web/app/api/`:
 
 ## Key Data Flows
 
-1.  **Email Processing and AI Automation:**
+1. **Email Processing and AI Automation:**
 
     - Gmail webhook receives email notifications.
     - Webhook handler (`/api/google/webhook`) fetches email details from Gmail API.
@@ -169,7 +173,7 @@ The application exposes the following API endpoints under `apps/web/app/api/`:
     - Actions (archive, label, reply, etc.) are performed via Gmail API.
     - Executed rules and actions are stored in the database (Prisma).
 
-2.  **Bulk Unsubscriber:**
+2. **Bulk Unsubscriber:**
 
     - User initiates bulk unsubscribe process from the web UI (`apps/web/app/(app)/bulk-unsubscribe`).
     - Frontend fetches list of newsletters and senders from Tinybird analytics data (`packages/tinybird`).
@@ -177,7 +181,7 @@ The application exposes the following API endpoints under `apps/web/app/api/`:
     - Backend service (`apps/unsubscriber`) uses Playwright to automate unsubscribe process.
     - Unsubscribe status is updated in the database.
 
-3.  **Email Analytics:**
+3. **Email Analytics:**
     - Tinybird data sources and pipes (`packages/tinybird`) collect email activity data.
     - Web UI (`apps/web/app/(app)/stats`) fetches analytics data from Tinybird API and displays charts and summaries.
 
