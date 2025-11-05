@@ -1,8 +1,8 @@
-# Inbox Zero Architecture
+# BillHero Architecture
 
-The initial version of this document was created by Google Gemini 2.0 Flash Thinking Experimental 01-21.
+BillHero is an AI-powered attorney billing automation system built on the Inbox Zero foundation. The project leverages JusticeOS Google Cloud infrastructure while maintaining project separation for flexibility.
 
-The Inbox Zero repository is structured as a monorepo, consisting of two main applications (`apps/web`, `apps/unsubscriber`) and several packages (`packages/*`). Only the `apps/web` is currently in use in production.
+The BillHero repository is structured as a monorepo, consisting of two main applications (`apps/web`, `apps/unsubscriber`) and several packages (`packages/*`). Only the `apps/web` is currently in use for the attorney billing system.
 
 ```txt
 ├── apps/
@@ -110,6 +110,41 @@ The Inbox Zero repository is structured as a monorepo, consisting of two main ap
 - **Key Files:**
   - `Dockerfile.web`: Dockerfile for building the Next.js web application image.
   - `docker-compose.yml`: Docker Compose file for setting up local development environment with PostgreSQL, Redis, and the web application.
+
+## BillHero Cloud Infrastructure
+
+BillHero leverages JusticeOS Google Cloud Platform resources for scalability and cost efficiency:
+
+### GCP Project
+- **Project ID**: `billhero-attorney-billing`
+- **Billing**: JusticeOS Billing Account (010566-FD1BF0-0817B4)
+- **Region**: us-east-1
+
+### Enabled APIs
+- Cloud Functions (serverless compute)
+- Cloud Run (containerized services)
+- Cloud Storage (document storage)
+- Document AI (OCR processing)
+- Cloud Scheduler (automated tasks)
+- Secret Manager (credential storage)
+- Pub/Sub (message queuing)
+
+### Google Cloud Storage
+- **Raw Data Bucket**: `gs://justiceos-data-staging-raw/`
+  - Incoming documents (PDFs, emails, phone bills)
+  - Source files for OCR and AI processing
+- **Processed Data Bucket**: `gs://justiceos-data-staging-processed/`
+  - OCR text outputs from Document AI
+  - AI-enriched JSON data
+  - Processed billing information
+
+### Data Processing Pipeline
+1. Documents uploaded to `gs://justiceos-data-staging-raw/`
+2. GCS Orchestrator triggers Document AI processing
+3. OCR results stored in `gs://justiceos-data-staging-processed/`
+4. AI enrichment via Vercel AI Gateway
+5. Graph ingestion into Neo4j AuraDB
+6. Billing data stored in Supabase PostgreSQL
 
 ## API Endpoints
 

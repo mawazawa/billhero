@@ -10,29 +10,31 @@ This document outlines the development tasks for the project, broken down into s
 - [X] **Task 1.2: Clone `Inbox Zero` Repository**
   - [X] Cloned the `elie222/inbox-zero` repository to serve as the project foundation.
 
-- [ ] **Task 1.3: Install Dependencies**
-  - [ ] Run `pnpm install` to download all required packages.
+- [X] **Task 1.3: Install Dependencies**
+  - [X] Run `pnpm install` to download all required packages.
 
-- [ ] **Task 1.4: Set Up Core Cloud Infrastructure**
-  - [ ] Create a new GCP Project.
-  - [ ] Enable required APIs: Cloud Functions, Cloud Run, Cloud Storage, Document AI, Cloud Scheduler, Secret Manager.
-  - [ ] Create a Supabase project.
+- [X] **Task 1.4: Set Up Core Cloud Infrastructure**
+  - [X] Create a new GCP Project (`billhero-attorney-billing`).
+  - [X] Enable required APIs: Cloud Functions, Cloud Run, Cloud Storage, Document AI, Cloud Scheduler, Secret Manager, PubSub.
+  - [X] Create a Supabase project and integrate custom models.
   - [ ] Provision a Neo4j AuraDB instance.
-  - [ ] Set up a Vercel project and link it to the forked repository.
+  - [ ] Set up a Vercel project and link it to the repository.
 
-- [ ] **Task 1.4: Integrate `Inbox Zero` with Supabase**
-  - [ ] Update the Prisma schema in the `Inbox Zero` project to point to the Supabase PostgreSQL database.
-  - [ ] Run migrations to set up the initial tables.
-  - [ ] Test the connection and ensure `Inbox Zero` can write to Supabase.
+- [X] **Task 1.5: Integrate `Inbox Zero` with Supabase**
+  - [X] Update the Prisma schema in the `Inbox Zero` project to point to the Supabase PostgreSQL database.
+  - [X] Run migrations to set up the initial tables including custom BillHero models.
+  - [X] Test the connection and ensure `Inbox Zero` can write to Supabase.
 
-- [ ] **Task 1.5: First Git Commit**
-  - [ ] Commit all the initial setup and configuration with a message like `feat: Initial project setup with Inbox Zero foundation`.
+- [X] **Task 1.6: Initial Commit & Push**
+  - [X] Commit all the initial setup and configuration with clean git history.
+  - [X] Push to GitHub repository (mawazawa/billhero).
 
 ## Sprint 2: Building the Processing Pipeline
 
 - [ ] **Task 2.1: Create GCS Buckets**
-  - [ ] Create `gs://attorney-billing-raw-data` for all incoming files.
-  - [ ] Create `gs://attorney-billing-processed-data` for the output of OCR and NLP tasks.
+  - [X] Create `gs://justiceos-data-staging-raw` for all incoming files.
+  - [X] Create `gs://justiceos-data-staging-processed` for the output of OCR and NLP tasks.
+  - [X] Buckets provisioned under JusticeOS Google account for resource sharing.
 
 - [ ] **Task 2.2: Develop the GCS Orchestrator Function**
   - [ ] Write a Cloud Function that triggers on new files in the `raw-data` bucket.
