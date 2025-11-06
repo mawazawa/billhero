@@ -80,5 +80,35 @@ This document outlines the development tasks for the project, broken down into s
   - [ ] Create an editable table to display, modify, and approve line items.
   - [ ] Connect the UI to the backend API endpoints.
 
-- [ ] **Task 4.3: Case Management UI**
-  - [ ] Build basic CRUD UI for managing `Cases` in the Supabase database.
+## 🔍 Infrastructure Research & Decision Matrix
+
+### ✅ **DECISION MADE: Mistral OCR 2505**
+- **Status**: CONFIRMED (100% sure per user research)
+- **API Key**: `hC1LYTQD1in75X9JJG3ddegojXas99i5`
+- **Capability**: Advanced document understanding with text, images, tables, equations
+- **Advantage**: Superior to Google Document AI for legal/billing documents
+
+### ❌ **DECISION: REJECTED FiveTran Gmail Integration**
+**Critical Blocker**: FiveTran Email Connector only supports CSV/JSON files, **NOT PDF attachments**
+- **BillHero Requirement**: PDF billing documents (attorney bills, phone bills, invoices)
+- **FiveTran Limitation**: Cannot extract PDF attachments from Gmail
+- **Impact**: Cannot replace custom Gmail → Document AI pipeline
+
+### 🤔 **FiveTran Alternative: Structured Data Movement Only**
+**Potential Use Case**: GCS → Supabase data movement after OCR processing
+```
+Gmail → Custom Webhook → Mistral OCR → FiveTran → GCS → Supabase
+```
+**Trial Strategy**: Test FiveTran GCS → Supabase integration (2-week trial available)
+
+### 📊 **Final Architecture Decision**:
+1. **Keep Custom Gmail Integration** for PDF attachment extraction
+2. **Switch to Mistral OCR 2505** for document processing
+3. **Evaluate FiveTran** for structured data movement (GCS → Supabase)
+4. **Maintain GCP Infrastructure** for core processing pipeline
+
+### 🔑 **Credentials Added**:
+- Mistral OCR API key secured and ready for integration
+- FiveTran trial available for structured data testing
+
+**Next**: Update architecture docs to reflect Mistral OCR integration and proceed with infrastructure setup.
