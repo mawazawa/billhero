@@ -96,18 +96,20 @@ This document outlines the development tasks for the project, broken down into s
 
 ### 🤔 **FiveTran Alternative: Structured Data Movement Only**
 **Potential Use Case**: GCS → Supabase data movement after OCR processing
-```
+
+```text
 Gmail → Custom Webhook → Mistral OCR → FiveTran → GCS → Supabase
 ```
+
 **Trial Strategy**: Test FiveTran GCS → Supabase integration (2-week trial available)
 
-### 📊 **Final Architecture Decision**:
+### 📊 **Final Architecture Decision**
 1. **Keep Custom Gmail Integration** for PDF attachment extraction
 2. **Switch to Mistral OCR 2505** for document processing
 3. **Evaluate FiveTran** for structured data movement (GCS → Supabase)
 4. **Maintain GCP Infrastructure** for core processing pipeline
 
-### 🔑 **Credentials Added**:
+### 🔑 **Credentials Added**
 - Mistral OCR API key secured and ready for integration
 - FiveTran trial available for structured data testing
 
