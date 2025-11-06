@@ -12,6 +12,7 @@ import type { EmailProvider } from "@/utils/email/types";
 import type { RuleWithActions } from "@/utils/types";
 import type { EmailAccountWithAI } from "@/utils/llms/types";
 import type { Logger } from "@/utils/logger";
+import { processPDFAttachments, isLikelyBillingMessage, type EnrichedMessage } from "@/utils/ocr/mistral-ocr";
 
 export type SharedProcessHistoryOptions = {
   provider: EmailProvider;
@@ -68,6 +69,13 @@ export async function processHistoryItem(
           })
         : null,
     ]);
+
+    // Process PDF attachments with Mistral OCR if this looks like a billing message
+    let enrichedMessage: EnrichedMessage = parsedMessage;
+    if (isLikelyBillingMessage(parsedMessage)) {
+      logger.info("Processing billing message with Mistral OCR");
+      enrichedMessage = await processPDFAttachments(parsedMessage, provider, logger);
+    }
 
     // Get threadId from message if not provided
     const actualThreadId = threadId || parsedMessage.threadId;
@@ -185,7 +193,7 @@ export async function processHistoryItem(
 
       await runRules({
         provider,
-        message: parsedMessage,
+        message: enrichedMessage,
         rules,
         emailAccount,
         isTest: false,
