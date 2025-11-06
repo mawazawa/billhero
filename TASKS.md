@@ -17,6 +17,7 @@ This document outlines the development tasks for the project, broken down into s
   - [X] Create a new GCP Project (`billhero-attorney-billing`).
   - [X] Enable required APIs: Cloud Functions, Cloud Run, Cloud Storage, Document AI, Cloud Scheduler, Secret Manager, PubSub.
   - [X] Create a Supabase project and integrate custom models.
+  - [X] Integrate Mistral OCR 2505 for PDF billing document processing.
   - [ ] Provision a Neo4j AuraDB instance.
   - [ ] Set up a Vercel project and link it to the repository.
 
